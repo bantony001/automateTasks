@@ -3,6 +3,7 @@ package autoAmazon.amazonTest;
 import java.io.IOException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.Test;
 
 import autoAmazon.helper.Helper;
 import autoAmazon.helper.ExcelAction;
@@ -15,16 +16,19 @@ import autoAmazon.pages.SearchResultPage;
 
 public class SeleniumTest {	
 		
-		public static void main(String[] args) throws InterruptedException, IOException {
+	WebDriver driver;
+	HomePage homePage;
+	SearchResultPage srPage;
+	AddToCartPage atcPage;
+	LoginPage loginPage;
+	ProductPage pPage=null;
+	DeliveryAddressPage deliveryAddPage;	
+	ExcelAction excelAction;
+	
+		@Test
+		public void deliveryOfProduct() throws InterruptedException, IOException {
 			
-			WebDriver driver;
-			HomePage homePage;
-			SearchResultPage srPage;
-			AddToCartPage atcPage;
-			LoginPage loginPage;
-			ProductPage pPage=null;
-			DeliveryAddressPage deliveryAddPage;	
-			ExcelAction excelAction;
+
 			
 			System.setProperty("webdriver.chrome.driver", "D:\\Softwares\\eclipse-workspace\\lib\\chromedriver.exe");
 			driver = new ChromeDriver();

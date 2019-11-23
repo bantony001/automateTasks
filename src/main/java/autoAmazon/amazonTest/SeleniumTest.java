@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import autoAmazon.helper.Helper;
-import autoAmazon.helper.ReadExcel;
+import autoAmazon.helper.ExcelAction;
 import autoAmazon.pages.AddToCartPage;
 import autoAmazon.pages.DeliveryAddressPage;
 import autoAmazon.pages.HomePage;
@@ -24,7 +24,7 @@ public class SeleniumTest {
 			LoginPage loginPage;
 			ProductPage pPage=null;
 			DeliveryAddressPage deliveryAddPage;	
-			ReadExcel readExcel;
+			ExcelAction excelAction;
 			
 			System.setProperty("webdriver.chrome.driver", "D:\\Softwares\\eclipse-workspace\\lib\\chromedriver.exe");
 			driver = new ChromeDriver();
@@ -32,8 +32,8 @@ public class SeleniumTest {
 			driver.manage().window().maximize();
 			Thread.sleep(3000);
 
-			readExcel = new ReadExcel();
-			String productName = readExcel.readSheet(1,0);
+			excelAction = new ExcelAction();
+			String productName = excelAction.readSheet("TestData",1,0);
 			homePage = new HomePage(driver);
 			homePage.searchProduct(productName);
 			
@@ -58,13 +58,13 @@ public class SeleniumTest {
 	        //Login page is displayed
 	        loginPage = new LoginPage(driver);
 	        loginPage.verifyLoginPage();
-			String userName = readExcel.readSheet(1,1);
-			String password = readExcel.readSheet(1,2);
+			String userName = excelAction.readSheet("TestData",1,1);
+			String password = excelAction.readSheet("TestData",1,2);
 	        loginPage.enterUserCredentials(userName, password);
 	        
 	        //Delivery page is displayed
 	        deliveryAddPage = new DeliveryAddressPage(driver);
-	        String custName = readExcel.readSheet(1,3);
+	        String custName = excelAction.readSheet("TestData",1,3);
 	        deliveryAddPage.verifyDeliveryPage(custName);	        
 	        
 			driver.close();
@@ -73,6 +73,9 @@ public class SeleniumTest {
 	        driver.switchTo().window(parentWinHandle);
 	        driver.close();
 			System.out.println("Final Verification is successful");
+			
+			//Write Excel
+			//excelAction.writeSheet("Status", 1, 1, "Pass"); //Updating the file incorrectly
 		}		
 
 }

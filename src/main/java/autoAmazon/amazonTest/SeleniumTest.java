@@ -3,6 +3,11 @@ package autoAmazon.amazonTest;
 import java.io.IOException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.firefox.FirefoxDriver;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import autoAmazon.helper.Helper;
@@ -25,16 +30,38 @@ public class SeleniumTest {
 	DeliveryAddressPage deliveryAddPage;	
 	ExcelAction excelAction;
 	
+	@BeforeTest
+	@Parameters("browser")
+	public void setup(String browser) throws InterruptedException {
+		if(browser.equalsIgnoreCase("chrome")) {
+			System.setProperty("webdriver.chrome.driver", "D:\\Softwares\\eclipse-workspace\\lib\\chromedriver.exe");
+			driver = new ChromeDriver();
+		}
+		else if(browser.equalsIgnoreCase("firefox")) {
+			System.setProperty("webdriver.gecko.driver", "D:\\Softwares\\eclipse-workspace\\lib\\geckodriver.exe");
+			driver = new FirefoxDriver();
+		}
+		else if(browser.equalsIgnoreCase("Edge")){
+			System.setProperty("webdriver.edge.driver","D:\\Softwares\\Executable Files\\msedgedriver.exe");
+			driver = new EdgeDriver();
+		}
+		else {
+			throw new SkipException("Invalid Browser");
+		}
+		driver.get("https://www.amazon.in/");		
+		driver.manage().window().maximize();
+		Thread.sleep(3000);
+	}
+	
+	
 		@Test
 		public void deliveryOfProduct() throws InterruptedException, IOException {
 			
-
-			
-			System.setProperty("webdriver.chrome.driver", "D:\\Softwares\\eclipse-workspace\\lib\\chromedriver.exe");
+			/*System.setProperty("webdriver.chrome.driver", "D:\\Softwares\\eclipse-workspace\\lib\\chromedriver.exe");
 			driver = new ChromeDriver();
 			driver.get("https://www.amazon.in/");		
 			driver.manage().window().maximize();
-			Thread.sleep(3000);
+			Thread.sleep(3000);*/
 
 			excelAction = new ExcelAction();
 			String productName = excelAction.readSheet("TestData",1,0);

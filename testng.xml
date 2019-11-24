@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite">
-  <test thread-count="5" name="Test">
+<suite name="Suite"  thread-count="2" parallel="tests" >
+  <test name="FirefoxTest">
+  	<parameter name = "browser" value = "firefox"/>
     <classes>
       <class name="autoAmazon.amazonTest.SeleniumTest"/>
     </classes>
+  </test> 
+  <test name="ChromeTest">
+  	<parameter name = "browser" value = "chrome"/>
+    <classes>
+      <class name="autoAmazon.amazonTest.SeleniumTest"/>
+    </classes>  
   </test> <!-- Test -->
 </suite> <!-- Suite -->
